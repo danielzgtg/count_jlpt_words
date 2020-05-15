@@ -6,8 +6,9 @@ if True:
     import sys
     sys.path.append("/usr/share/anki")
     import anki_load
-    from typing import Dict, Iterable, List
+    import re
     import unicodedata
+    from typing import Dict, Iterable, List
 
 
 def _get_words(line: str) -> Iterable[str]:
@@ -49,15 +50,21 @@ def _print_histogram(histogram: List[int]) -> None:
         print()
 
 
+_KANA_PATTERN = re.compile("[\u3040-\u30ff]")
+
+
 def _handle_line(levels: Dict[str, int], line: str) -> None:
     words = list(_get_words(line))
     if words:
         histogram = [0, 0, 0, 0, 0, 0]
         for word in words:
-            if word not in levels:
-                level = 0
+            assert word
+            if len(word) == 1 and _KANA_PATTERN.match(word):
+                # Hardcode Kana detection
+                level = 5
             else:
-                level = levels[word]
+                # 0 is for unknown
+                level = levels.get(word, 0)
             histogram[level] += 1
         _print_histogram(histogram)
     else:
