@@ -34,8 +34,10 @@ N5: ######
 
 ## Duolingo tree example
 
-1. Go to https://forum.duolingo.com/comment/32529914
-2. Select, copy, and paste everything between "Checkpoint 1" and "Total" into `input.txt`
+This project was used to generate https://forum.duolingo.com/comment/38712718
+
+1. Go to https://forum.duolingo.com/comment/37599030
+2. Select, copy, and paste the interesting part of the post and the comment into `input.txt`
 3. Run the following code:
 ```shell script
 cat input.txt |

@@ -54,6 +54,8 @@ _KANA_PATTERN = re.compile("[\u3040-\u30ff]")
 
 
 def _handle_line(levels: Dict[str, int], line: str) -> None:
+    if not line:
+        return
     words = list(_get_words(line))
     if words:
         histogram = [0, 0, 0, 0, 0, 0]
