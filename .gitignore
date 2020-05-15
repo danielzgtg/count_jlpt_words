@@ -1,0 +1,9 @@
+/res/
+/tmp.anki2
+/tmp.anki2-shm
+/tmp.anki2-wal
+/tmp.media.db2
+/__pycache__
+/.idea
+/input.txt
+/output.txt
