@@ -8,11 +8,13 @@ if True:
     import anki_load
     import re
     import unicodedata
-    from typing import Dict, Iterable, List
+    from typing import Dict, Generator, Iterable, List, Optional
 
 
 def _get_words(line: str) -> Iterable[str]:
     """Gets desired words such as Japanese ones, excluding undesired ones such as English ones."""
+    if not line:
+        return
     last_idx = -1
     idx = 0
     for idx in range(len(line)):
@@ -53,33 +55,46 @@ def _print_histogram(histogram: List[int]) -> None:
 _KANA_PATTERN = re.compile("[\u3040-\u30ff]")
 
 
-def _handle_line(levels: Dict[str, int], line: str) -> None:
-    if not line:
-        return
-    words = list(_get_words(line))
-    if words:
-        histogram = [0, 0, 0, 0, 0, 0]
-        for word in words:
-            assert word
-            if len(word) == 1 and _KANA_PATTERN.match(word):
-                # Hardcode Kana detection
-                level = 5
-            else:
-                # 0 is for unknown
-                level = levels.get(word, 0)
-            histogram[level] += 1
-        _print_histogram(histogram)
-    else:
-        print(line)
+def _handle_line(levels: Dict[str, int], histogram: List[int], words: Iterable[str]) -> None:
+    for word in words:
+        assert word
+        if len(word) == 1 and _KANA_PATTERN.match(word):
+            # Hardcode Kana detection
+            level = 5
+        else:
+            # 0 is for unknown
+            level = levels.get(word, 0)
+        histogram[level] += 1
+
+
+def _worker(levels: Dict[str, int]) -> Generator[None, str, None]:
+    histogram: Optional[List[int]] = None
+    while True:
+        line = yield
+        words = list(_get_words(line))
+        if words:
+            if not histogram:
+                histogram = [0, 0, 0, 0, 0, 0]
+            _handle_line(levels, histogram, words)
+        else:
+            if histogram:
+                _print_histogram(histogram)
+                histogram = None
+            print(line)
 
 
 def main() -> None:
     levels = anki_load.levels()
+    worker = _worker(levels)
+    next(worker)
     try:
         while True:
-            _handle_line(levels, input())
+            line = input()
+            worker.send(line)
     except EOFError:
         pass
+    # Flush last histogram
+    worker.send("")
 
 
 if __name__ == '__main__':
