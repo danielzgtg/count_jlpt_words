@@ -55,10 +55,10 @@ def _handle_line(levels: Dict[str, int], line: str) -> None:
         histogram = [0, 0, 0, 0, 0, 0]
         for word in words:
             if word not in levels:
-                histogram[0] += 1
+                level = 0
             else:
                 level = levels[word]
-                histogram[level] += 1
+            histogram[level] += 1
         _print_histogram(histogram)
     else:
         print(line)
