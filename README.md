@@ -45,6 +45,7 @@ cat input.txt |
   grep -v Tips |
   grep -v Number |
   grep -v Checkpoint |
+  grep -v Words |
   sed -E 's/([^\n]+) \[test\]/## \1/' > \
   output.txt
 ```
