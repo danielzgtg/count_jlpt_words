@@ -24,7 +24,7 @@ Whenever possible, words are extracted from each line, classified into JLPT leve
 and are counted in a histogram that is printed out:
 
 ```
-N?: ##################
+N?: 18
 N1: ###
 N2: 
 N3: ####
