@@ -35,14 +35,11 @@ def __load(cwd: str, col: "Collection", path: str) -> None:
 
 
 def _load(cwd: str, col: "Collection") -> None:
-    __load(cwd, col, "JLPT-N1_words_in_jishoorg_2018.apkg")
-    __load(cwd, col, "JLPT-N2_words_in_jishoorg_2018.apkg")
-    __load(cwd, col, "JLPT-N3_words_in_jishoorg_2018.apkg")
-    __load(cwd, col, "JLPT-N4_words_in_jishoorg_2018.apkg")
-    __load(cwd, col, "JLPT-N5_words_in_jishoorg_2018.apkg")
+    for path in os.listdir(os.path.join(cwd, "res")):
+        __load(cwd, col, path)
 
 
-_NAME_PAT = re.compile(r"JLPT-N(\d) words in jisho.org \(2018\)")
+_NAME_PAT = re.compile(r"N(\d)", re.IGNORECASE)
 
 
 def _deck_map(col: "Collection") -> Dict[int, int]:
@@ -51,9 +48,9 @@ def _deck_map(col: "Collection") -> Dict[int, int]:
         name = deck["name"]
         if name == "Default":
             continue
-        name = _NAME_PAT.match(name).group(1)
-        assert name
-        decks[deck["id"]] = int(name)
+        level = _NAME_PAT.search(name).group(1)
+        assert level
+        decks[deck["id"]] = int(level)
     return decks
 
 
