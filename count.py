@@ -39,12 +39,14 @@ _BAR_LABELS = {
 
 
 def _print_histogram(histogram: List[int]) -> None:
-    print("```")
     for level, frequency in enumerate(histogram):
         # Print frequency of unknown classification as number to set it apart from the bars
-        print(_BAR_LABELS[level], "#" * frequency if level else frequency)
-    print("```")
-    print()
+        print("`",
+              _BAR_LABELS[level], " ", "#" * frequency if level else frequency,
+              "`",
+              sep="",
+              )
+        print()
 
 
 def _handle_line(levels: Dict[str, int], line: str) -> None:

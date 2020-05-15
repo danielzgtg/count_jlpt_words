@@ -43,7 +43,7 @@ cat input.txt |
   grep -v Tips |
   grep -v Number |
   grep -v Checkpoint |
-  sed -E 's/([^\n]+) \[test\]/# \1/' > \
+  sed -E 's/([^\n]+) \[test\]/## \1/' > \
   output.txt
 ```
 
