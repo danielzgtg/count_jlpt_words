@@ -44,6 +44,8 @@ and are counted in a histogram that is printed out:
 
 This project was used to generate https://forum.duolingo.com/comment/38712718
 
+![graph in that thread](graph.png)
+
 1. Go to https://forum.duolingo.com/comment/37599030
 2. Select, copy, and paste the interesting part of the post and the comment into `input.txt`
 3. Run the following code:
