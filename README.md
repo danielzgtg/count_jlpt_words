@@ -94,3 +94,7 @@ d0b85e4b19b385bb0d4a8e360591d5a3e8f96f49a8bc3750471594d306a6768f  res/Pass_JLPT_
 - Do not use virtualenv
 - The current working directory must be in the root of the Git repo
 - Currently, it is the case that a large amount of words are not classified
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 or any later version.
