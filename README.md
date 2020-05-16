@@ -1,5 +1,7 @@
 # count_jlpt_words
 
+Draws histograms for JLPT levels of words.
+
 ## Requirements
 
 - Python 3.8
@@ -18,18 +20,24 @@ The program is run like `./count.py`.
 
 Input goes in stdin. Output comes out of stdout.
 
-Analysis is done per-line.
+Analysis is done per continuous group of analyzable lines.
 Non-analyzable lines pass through unchanged, while analyzable lines are replaced.
-Whenever possible, words are extracted from each line, classified into JLPT levels,
+Whenever possible, words are extracted, classified into JLPT levels,
 and are counted in a histogram that is printed out:
 
 ```
-N?: 18
-N1: ###
-N2: 
-N3: ####
-N4: ###
-N5: ######
+`N?: 18`
+
+`N1: ###`
+
+`N2: `
+
+`N3: ####`
+
+`N4: ###`
+
+`N5: ######`
+
 ```
 
 ## Duolingo tree example
